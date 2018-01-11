@@ -3,6 +3,8 @@ package com.suhaas.weatherappmvp.api;
 
 import com.suhaas.weatherappmvp.model.WeatherResponse;
 
+import java.util.List;
+
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -12,5 +14,5 @@ public interface WeatherApi {
     Observable<WeatherResponse.CityBean> getCity();
 
     @GET("staticweather")
-    Observable<WeatherResponse.WeatherList> getWeather();
+    Observable<WeatherResponse> getWeather();
 }

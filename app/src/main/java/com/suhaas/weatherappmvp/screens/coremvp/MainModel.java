@@ -6,6 +6,8 @@ import com.suhaas.weatherappmvp.model.WeatherResponse;
 import com.suhaas.weatherappmvp.screens.MainActivity;
 import com.suhaas.weatherappmvp.utils.NetworkUtils;
 
+import java.util.List;
+
 import rx.Observable;
 
 public class MainModel {
@@ -18,7 +20,7 @@ public class MainModel {
         this.weatherApi = weatherApi;
     }
 
-    Observable<WeatherResponse.WeatherList> provideWeatherList(){
+    Observable<WeatherResponse> provideWeatherList(){
         return weatherApi.getWeather();
     }
 

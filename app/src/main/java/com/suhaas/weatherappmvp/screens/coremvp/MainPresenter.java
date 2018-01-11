@@ -1,10 +1,13 @@
 package com.suhaas.weatherappmvp.screens.coremvp;
 
 
+import android.util.Log;
+
 import com.suhaas.weatherappmvp.model.WeatherResponse;
 import com.suhaas.weatherappmvp.utils.RxSchedulers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -15,7 +18,7 @@ public class MainPresenter {
     MainView mainView;
     RxSchedulers rxSchedulers;
     CompositeSubscription subscriptions;
-    ArrayList<WeatherResponse.WeatherList> weatherLists = new ArrayList<>();
+    List<WeatherResponse.WeatherList> weatherResponseList;
 
     public MainPresenter(MainModel mainModel, MainView mainView, RxSchedulers rxSchedulers, CompositeSubscription subscriptions) {
         this.mainModel = mainModel;
@@ -26,6 +29,8 @@ public class MainPresenter {
 
     public void onCreate() {
 
+        Log.d("enter to presenter", "okay");
+        subscriptions.add(getWeatherList());
     }
 
     public void onDestroy() {
@@ -33,7 +38,20 @@ public class MainPresenter {
     }
 
     private Subscription getWeatherList() {
-        return null;
+        return mainModel.isNetworkAvailable().doOnNext(networkAvailable ->{
+            if (!networkAvailable){
+                Log.d("No network", "No Connection");
+            }
+        })
+                .filter(isNetworkAvailable -> true)
+                .flatMap(isAvailable -> mainModel.provideWeatherList())
+                .subscribeOn(rxSchedulers.internet())
+                .observeOn(rxSchedulers.androidThread())
+                .subscribe(weatherList -> {
+                    Log.d("Okay", "Loaded");
+                    mainView.swapAdapter((ArrayList<WeatherResponse.WeatherList>) weatherList.getList());
+                    weatherResponseList = weatherList.getList();
+                });
     }
 
 

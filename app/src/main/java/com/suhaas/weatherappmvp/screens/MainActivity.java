@@ -1,10 +1,9 @@
 package com.suhaas.weatherappmvp.screens;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.suhaas.weatherappmvp.ApplicationController;
-import com.suhaas.weatherappmvp.R;
 import com.suhaas.weatherappmvp.screens.coremvp.MainPresenter;
 import com.suhaas.weatherappmvp.screens.coremvp.MainView;
 import com.suhaas.weatherappmvp.screens.di.DaggerMainComponenet;
