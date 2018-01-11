@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class WeatherApiServiceModule {
 
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "https://andfun-weather.udacity.com/";
 
     @AppScope
     @Provides
